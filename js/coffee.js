@@ -1,27 +1,50 @@
 const output = document.querySelector('#output');
 
 /* STEP 1: Instead of a constructor function, let's try a JavaScript class called 'Coffee' */
+class Coffee {
+    size;
+    isDecaf;
+    // create constructor with keyword
+    constructor(size, isDecaf) {
+        this.size = size;
+        this.isDecaf = isDecaf;
+    }
+    // add a serveIt method
+    serveIt() {
+        // Generate an IMG of the coffee ordered
+        let cup = document.createElement("img"); // <img>
+        // Set the src path for the IMG element
+        cup.setAttribute("src", "images/coffee-cup.svg"); // <img src="images/coffee-cup.svg">
+        // Determine caffeine status of the coffee
+        if (this.isDecaf) {
+            cup.setAttribute("src", "images/coffee-cup-green.svg");
+        } else {
+            cup.setAttribute("src", "images/coffee-cup-purple.svg");
+        }
+        // Set the size of the cup SVG image based on this.size
+        switch (this.size) {
+            // Size the IMG in terms of its height based on above number from the switch
+            case "small":
+                cup.setAttribute("height", 100); // <img src="images/coffee-cup.svg" height=100>
+                break;
+            case "medium":
+                cup.setAttribute("height", 150);
+                break;
+            case "large":
+                cup.setAttribute("height", 200);
+                break;
+            default:
+                cup.setAttribute("height", 150);
+        }
 
-// create constructor with keyword
-
-// add a serveIt method
-
-// Generate an IMG of the coffee ordered
-
-// Set the src path for the IMG element
-
-// Determine caffeine status of the coffee
-
-// Set the size of the cup SVG image based on this.size
-
-// Size the IMG in terms of its height based on above number from the switch
-
-// Generate a description of the coffee and put it into the 
-//IMG title attribute
-
-// Insert the new IMG element into the paragraph
-
-// Output all object member values
+        // Generate a description of the coffee and put it into the 
+        //IMG title attribute
+        // <img src="images/coffee-cup.svg" height=100 title="A small sized coffee.">
+        // Insert the new IMG element into the paragraph
+        output.appendChild(cup);
+        // Output all object member values
+    }
+}
 
 /* STEP 2: Instatiate a coffee based on the 
 above constructor function */
@@ -29,12 +52,29 @@ above constructor function */
 /* STEP 3: Add a method to the Coffee class called serveIt() */
 
 /* STEP 4: Call up the serveIt() method */
+let priyanshCoffee = new Coffee("medium", true);
+let robertCoffee = new Coffee("large", false);
+let meganCoffee = new Coffee("small", true);
 
 /* STEP 5: Define a subclass of the Coffee class */
+priyanshCoffee.serveIt();
+robertCoffee.serveIt();
+meganCoffee.serveIt();
 
 /* STEP 6: Create a new instance of the Latte object */
+class Latte extends Coffee {
+    milkType;
+    constructor(size, isDecaf, milkType) {
+        super(size, isDecaf);
+        this.milkType = milkType;
+    };
+    latteDesc() {
+        alert(`A ${this.size} sized Latte with ${this.milkType} milk.`);
+    }
+}
 
 /* STEP 7: Call up the latteDesc() method for the above created Latte instance */
+let priyanshLatte = new Latte("medium", false, "2%");
 
 /* STEP 8: Create yet another instance of Latte using the console, 
 and try the latteDesc() method from the subclass, as well as the serveIt() method 
